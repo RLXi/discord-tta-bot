@@ -19,7 +19,7 @@ const commands = [
     .setName(myCommands.ADD_ME_COMMAND)
     .setDescription("Adds person to the available players list."),
   new SlashCommandBuilder()
-    .setName(myCommands.REMOVE_COMMAND)
+    .setName(myCommands.REMOVE_ME_COMMAND)
     .setDescription("Removes person from available players list."),
   new SlashCommandBuilder()
     .setName(myCommands.STATS_COMMAND)
