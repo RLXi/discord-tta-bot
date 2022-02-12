@@ -1,13 +1,14 @@
 require('dotenv').config();
 
-const Discord = require('discord.js');
+const {Client, Intents} = require('discord.js');
 const { combinations } = require('./utils');
 
-const client = new Discord.Client({
-    partials: ["MESSAGE"]
+const client = new Client({
+    // partials: ["MESSAGE"],
+    intents: [Intents.FLAGS.GUILDS]
 });
 
-const BOT_PREFIX = '!';
+const BOT_PREFIX = '!tta';
 
 const ADD_ME_COMMAND = 'add-me';        // add player to the list
 const REMOVE_ME_COMMAND = 'remove-me'   // remove player from the list
@@ -21,12 +22,18 @@ client.on("ready", () => {
 });
 
 client.on("message", msg => {
-    if (msg.content === `${BOT_PREFIX}${ADD_ME_COMMAND}`) {}
-    if (msg.content === `${BOT_PREFIX}${REMOVE_ME_COMMAND}`) {}
-    if (msg.content === `${BOT_PREFIX}${STATS_COMMAND}`) {}
-    if (msg.content === `${BOT_PREFIX}${JOIN_COMMAND}`) {}
-    if (msg.content === `${BOT_PREFIX}${PAUSE_COMMAND}`) {}
-    if (msg.content === `${BOT_PREFIX}${GAME_STARTED_COMMAND}`) {}
+    msg.react('🌐');
+    msg.reply('höh');
+    if (msg.content === `${BOT_PREFIX} ${ADD_ME_COMMAND}`) {}
+    if (msg.content === `${BOT_PREFIX} ${REMOVE_ME_COMMAND}`) {}
+    if (msg.content === `${BOT_PREFIX} ${STATS_COMMAND}`) {
+        msg.channel.send('Here be stats: ...');
+        msg.react('🤖');
+    }
+    if (msg.content === `${BOT_PREFIX} ${JOIN_COMMAND}`) {}
+    if (msg.content === `${BOT_PREFIX} ${PAUSE_COMMAND}`) {}
+    if (msg.content === `${BOT_PREFIX} ${GAME_STARTED_COMMAND}`) {}
 });
+
 
 client.login(process.env.BOT_TOKEN);
