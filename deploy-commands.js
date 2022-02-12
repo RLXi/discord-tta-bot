@@ -16,11 +16,35 @@ const commands = [
     .setName("user")
     .setDescription("Replies with user info!"),
   new SlashCommandBuilder()
+    .setName(myCommands.ADD_ME_AS_COMMAND)
+    .setDescription(
+      "Adds person to the available players list with given name."
+    )
+    .addStringOption((option) => {
+      return option
+        .setName("New name")
+        .setDescription("New name:")
+        .setRequired(true);
+    }),
+  new SlashCommandBuilder()
     .setName(myCommands.ADD_ME_COMMAND)
-    .setDescription("Adds person to the available players list."),
+    .setDescription(
+      "Adds person to the available players list using your display name."
+    ),
   new SlashCommandBuilder()
     .setName(myCommands.REMOVE_ME_COMMAND)
     .setDescription("Removes person from available players list."),
+  new SlashCommandBuilder()
+    .setName(myCommands.CHANGE_ABBR_COMMAND)
+    .setDescription(
+      "Changes abbreviation of the player. Normally first letter of the name in the system."
+    )
+    .addStringOption((option) => {
+      return option
+        .setName("Abbreviation")
+        .setDescription("Abbreviation you wish to use")
+        .setRequired(true);
+    }),
   new SlashCommandBuilder()
     .setName(myCommands.STATS_COMMAND)
     .setDescription("Print out various stats."),
@@ -32,7 +56,13 @@ const commands = [
     .setDescription("Print out combinations of available games."),
   new SlashCommandBuilder()
     .setName(myCommands.JOIN_COMMAND)
-    .setDescription("Say you want to join x number of games."),
+    .setDescription("Say you want to join x number of games.")
+    .addIntegerOption((option) => {
+      return option
+        .setName("Number of games")
+        .setDescription("How many games you wish to join")
+        .setRequired(false);
+    }),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);

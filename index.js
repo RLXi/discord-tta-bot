@@ -9,10 +9,8 @@ const client = new Client({
   intents: [Intents.FLAGS.GUILDS],
 });
 
-const BOT_PREFIX = "!tta";
-
 client.on("ready", () => {
-  console.log(`Bot is ready. Logged in as ${client.user.tag}!`);
+  console.log(`Bot is ready. Logged in as ${client.user.tag}`);
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -27,10 +25,18 @@ client.on("interactionCreate", async (interaction) => {
       `Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
     );
   } else if (commandName === commands.ADD_ME_COMMAND) {
+    await interaction.reply(`Added name: ${interaction.member.displayName}`);
   } else if (commandName === commands.REMOVE_ME_COMMAND) {
   } else if (commandName === commands.STATS_COMMAND) {
   } else if (commandName === commands.JOIN_COMMAND) {
+    await interaction.reply(
+      `Joining ${interaction.options.getInteger("input", false)}`
+    );
   } else if (commandName === commands.TOGGLE_PAUSE_COMMAND) {
+  } else if (commandName === commands.CHANGE_ABBR_COMMAND) {
+    await interaction.reply(
+      `Change abbreviation: ${interaction.options.getString("input", true)}`
+    );
   } else if (commandName === commands.GAME_STARTED_COMMAND) {
   }
 });
