@@ -22,7 +22,7 @@ const commands = [
     )
     .addStringOption((option) => {
       return option
-        .setName("New name")
+        .setName("name")
         .setDescription("New name:")
         .setRequired(true);
     }),
@@ -41,7 +41,7 @@ const commands = [
     )
     .addStringOption((option) => {
       return option
-        .setName("Abbreviation")
+        .setName("abbreviation")
         .setDescription("Abbreviation you wish to use")
         .setRequired(true);
     }),
@@ -59,7 +59,7 @@ const commands = [
     .setDescription("Say you want to join x number of games.")
     .addIntegerOption((option) => {
       return option
-        .setName("Number of games")
+        .setName("num-games")
         .setDescription("How many games you wish to join")
         .setRequired(false);
     }),
