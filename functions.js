@@ -4,7 +4,7 @@ const { combinations } = require("./utils");
 
 const faunaClient = new faunadb.Client({
   secret: process.env.FAUNADB,
-  domain: "db.eu.fauna.com",
+  domain: process.env.FAUNA_DOMAIN,
 });
 
 const {

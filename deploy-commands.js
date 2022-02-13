@@ -1,6 +1,16 @@
 require("dotenv").config();
 
-const myCommands = require("./constants");
+const {
+  ADD_ME_COMMAND,
+  ADD_ME_AS_COMMAND,
+  REMOVE_ME_COMMAND,
+  STATS_COMMAND,
+  JOIN_COMMAND,
+  TOGGLE_PAUSE_COMMAND,
+  CHANGE_ABBR_COMMAND,
+  GAME_STARTED_COMMAND,
+} = require("./constants");
+
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
@@ -16,7 +26,7 @@ const commands = [
     .setName("user")
     .setDescription("Replies with user info!"),
   new SlashCommandBuilder()
-    .setName(myCommands.ADD_ME_AS_COMMAND)
+    .setName(ADD_ME_AS_COMMAND)
     .setDescription(
       "Adds person to the available players list with given name."
     )
@@ -27,15 +37,15 @@ const commands = [
         .setRequired(true);
     }),
   new SlashCommandBuilder()
-    .setName(myCommands.ADD_ME_COMMAND)
+    .setName(ADD_ME_COMMAND)
     .setDescription(
       "Adds person to the available players list using your display name."
     ),
   new SlashCommandBuilder()
-    .setName(myCommands.REMOVE_ME_COMMAND)
+    .setName(REMOVE_ME_COMMAND)
     .setDescription("Removes person from available players list."),
   new SlashCommandBuilder()
-    .setName(myCommands.CHANGE_ABBR_COMMAND)
+    .setName(CHANGE_ABBR_COMMAND)
     .setDescription(
       "Changes abbreviation of the player. Normally first letter of the name in the system."
     )
@@ -46,16 +56,16 @@ const commands = [
         .setRequired(true);
     }),
   new SlashCommandBuilder()
-    .setName(myCommands.STATS_COMMAND)
+    .setName(STATS_COMMAND)
     .setDescription("Print out various stats."),
   new SlashCommandBuilder()
-    .setName(myCommands.TOGGLE_PAUSE_COMMAND)
+    .setName(TOGGLE_PAUSE_COMMAND)
     .setDescription("Opt-out of games. Typed this command again to opt-in."),
   new SlashCommandBuilder()
-    .setName(myCommands.GAME_STARTED_COMMAND)
+    .setName(GAME_STARTED_COMMAND)
     .setDescription("Print out combinations of available games."),
   new SlashCommandBuilder()
-    .setName(myCommands.JOIN_COMMAND)
+    .setName(JOIN_COMMAND)
     .setDescription("Say you want to join x number of games.")
     .addIntegerOption((option) => {
       return option

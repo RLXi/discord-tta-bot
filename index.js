@@ -1,6 +1,16 @@
 require("dotenv").config();
 
-const commands = require("./constants");
+const {
+  ADD_ME_COMMAND,
+  ADD_ME_AS_COMMAND,
+  REMOVE_ME_COMMAND,
+  STATS_COMMAND,
+  JOIN_COMMAND,
+  TOGGLE_PAUSE_COMMAND,
+  CHANGE_ABBR_COMMAND,
+  GAME_STARTED_COMMAND,
+} = require("./constants");
+
 const {
   addCommand,
   addAsCommand,
@@ -11,6 +21,7 @@ const {
   changeAbbrCommand,
   togglePauseCommand,
 } = require("./functions");
+
 const { Client, Intents } = require("discord.js");
 
 const client = new Client({
@@ -27,28 +38,28 @@ client.on("interactionCreate", async (interaction) => {
   const { commandName, member, options } = interaction;
 
   switch (commandName) {
-    case commands.ADD_ME_COMMAND:
+    case ADD_ME_COMMAND:
       addCommand(interaction, member);
       break;
-    case commands.ADD_ME_AS_COMMAND:
+    case ADD_ME_AS_COMMAND:
       addAsCommand(interaction, member, options);
       break;
-    case commands.REMOVE_ME_COMMAND:
+    case REMOVE_ME_COMMAND:
       removeCommand(interaction, member);
       break;
-    case commands.STATS_COMMAND:
+    case STATS_COMMAND:
       statsCommand(interaction);
       break;
-    case commands.JOIN_COMMAND:
+    case JOIN_COMMAND:
       joinCommand(interaction, member, options);
       break;
-    case commands.TOGGLE_PAUSE_COMMAND:
+    case TOGGLE_PAUSE_COMMAND:
       togglePauseCommand(interaction, member);
       break;
-    case commands.CHANGE_ABBR_COMMAND:
+    case CHANGE_ABBR_COMMAND:
       changeAbbrCommand(interaction, member, options);
       break;
-    case commands.GAME_STARTED_COMMAND:
+    case GAME_STARTED_COMMAND:
       gameStartCommand(interaction);
       break;
     case "server":
