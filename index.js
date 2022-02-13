@@ -64,7 +64,7 @@ client.on("interactionCreate", async (interaction) => {
       break;
     case "server":
       await interaction.reply(
-        `Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
+        `Server name: \`${interaction.guild.name}\`\nTotal members: \`${interaction.guild.memberCount}\``
       );
       break;
     default:

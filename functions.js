@@ -24,7 +24,7 @@ const {
   Update,
 } = faunadb.query;
 
-function getPlayer(member) {
+async function getPlayer(member) {
   try {
     const doc = await faunaClient.query(
       Get(Match(Index("players_by_id"), `${member.id}`))
