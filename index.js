@@ -9,6 +9,7 @@ const {
   TOGGLE_PAUSE_COMMAND,
   CHANGE_ABBR_COMMAND,
   GAME_STARTED_COMMAND,
+  DB_STATS_COMMAND,
 } = require("./constants");
 
 const {
@@ -38,35 +39,51 @@ client.on("interactionCreate", async (interaction) => {
   const { commandName, member, options } = interaction;
 
   switch (commandName) {
-    case ADD_ME_COMMAND:
-      addCommand(interaction, member);
+    case ADD_ME_COMMAND: {
+      const msg = await addCommand(member);
+      interaction.reply(msg);
       break;
-    case ADD_ME_AS_COMMAND:
-      addAsCommand(interaction, member, options);
+    }
+    case ADD_ME_AS_COMMAND: {
+      const msg = await addAsCommand(member, options);
+      interaction.reply(msg);
       break;
-    case REMOVE_ME_COMMAND:
-      removeCommand(interaction, member);
+    }
+    case REMOVE_ME_COMMAND: {
+      const msg = await removeCommand(member);
+      interaction.reply(msg);
       break;
-    case STATS_COMMAND:
-      statsCommand(interaction);
+    }
+    case STATS_COMMAND: {
+      const msg = await statsCommand();
+      interaction.reply(msg);
       break;
-    case JOIN_COMMAND:
-      joinCommand(interaction, member, options);
+    }
+    case JOIN_COMMAND: {
+      const msg = await joinCommand(member, options);
+      interaction.reply(msg);
       break;
-    case TOGGLE_PAUSE_COMMAND:
-      togglePauseCommand(interaction, member);
+    }
+    case TOGGLE_PAUSE_COMMAND: {
+      const msg = await togglePauseCommand(member);
+      interaction.reply(msg);
       break;
-    case CHANGE_ABBR_COMMAND:
-      changeAbbrCommand(interaction, member, options);
+    }
+    case CHANGE_ABBR_COMMAND: {
+      const msg = await changeAbbrCommand(member, options);
+      interaction.reply(msg);
       break;
-    case GAME_STARTED_COMMAND:
-      gameStartCommand(interaction);
+    }
+    case GAME_STARTED_COMMAND: {
+      const msg = await gameStartCommand();
+      interaction.reply(msg);
       break;
-    case "server":
-      await interaction.reply(
-        `Server name: \`${interaction.guild.name}\`\nTotal members: \`${interaction.guild.memberCount}\``
-      );
+    }
+    case DB_STATS_COMMAND: {
+      const msg = await dbStatsCommand();
+      interaction.reply(msg);
       break;
+    }
     default:
       await interaction.reply("Pong!");
       break;

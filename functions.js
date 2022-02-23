@@ -31,13 +31,18 @@ async function getPlayer(member) {
     );
     return doc;
   } catch (e) {
-    console.log(e);
+    return `Something went wrong: ${e}`;
   }
-  return null;
 }
 
-async function addCommand(interaction, member) {
+async function addCommand(member) {
   try {
+    const a = await getPlayer(member);
+    if (typeof a === "string")
+      return `There was an error while trying to add the player`;
+    if (a?.data)
+      return `Couldn't add player. ${member.displayName} is already in the database`;
+
     const data = {
       id: `${member.id}`,
       name: member.displayName,
@@ -45,16 +50,17 @@ async function addCommand(interaction, member) {
       isPaused: false,
     };
     await faunaClient.query(Create(Collection("players"), { data }));
-    await interaction.reply(`${member.displayName} added`);
+    return `${member.displayName} added`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+    return `Something went wrong: ${e}`;
   }
-  //await interaction.reply(`Added name: ${interaction.member.displayName}`);
 }
 
-async function addAsCommand(interaction, member, options) {
+async function addAsCommand(member, options) {
   try {
+    const a = getPlayer(member);
+    if (a) return `${member.displayName} is already in the database`;
     const data = {
       id: `${member.id}`,
       name: options.getString("name"),
@@ -62,56 +68,57 @@ async function addAsCommand(interaction, member, options) {
       isPaused: false,
     };
     await faunaClient.query(Create(Collection("players"), { data }));
-    await interaction.reply(`${member.displayName} added`);
+    return `${member.displayName} added`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+    return `Something went wrong: ${e}`;
   }
-  //await interaction.reply(`Added name: ${interaction.member.displayName}`);
 }
 
-async function removeCommand(interaction, member) {
+async function removeCommand(member) {
   try {
-    await interaction.reply(`Removed name: ${member.displayName}`);
+    return `Removed name: ${member.displayName}`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+    return `Something went wrong: ${e}`;
   }
 }
 
-async function statsCommand(interaction) {
-  await interaction.reply(`Stats: testing`);
+async function statsCommand() {
+  return "Stats: testing";
 }
 
-async function joinCommand(interaction, member, options) {
+async function joinCommand(member, options) {
   try {
-    const numGames = options.getInteger("input", false);
-    await interaction.reply(`${member.displayName} joining ${numGames} games`);
+    const numGames = options.getInteger("num-games", false);
+    console.log(member, options);
+    return `${member.displayName} joining ${numGames} games`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+    return `Something went wrong: ${e}`;
   }
 }
 
-async function togglePauseCommand(interaction, member) {
+async function togglePauseCommand(member) {
   try {
     const doc = await faunaClient.query(
       Get(Match(Index("players_by_id"), `${member.id}`))
     );
-    await interaction.reply(`${JSON.stringify(doc)}`);
+    return `${JSON.stringify(doc)}`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+    return `Something went wrong: ${e}`;
   }
 }
 
-async function changeAbbrCommand(interaction, member, options) {
+async function changeAbbrCommand(member, options) {
   try {
     // const doc = await faunaClient.query(
     //   Get(Match(Index("players_by_id"), `${interaction.member.id}`))
     // );
     // const data = Object.assign({}, doc.data);
     const newAbbr = options.getString("abbreviation")[0].toUpperCase();
+    console.log(newAbbr);
     // data.customAbbreviation = newAbbr;
 
     // const names = res.data.results.map((i) => i.name);
@@ -147,19 +154,22 @@ async function changeAbbrCommand(interaction, member, options) {
       })
     );
     console.log(JSON.stringify(A));
-    await interaction.reply(`Changed abbreviation to '${newAbbr}'`);
+
+    return `Changed abbreviation to '${newAbbr}'`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+
+    return `Something went wrong: ${e}`;
   }
 }
 
-async function gameStartCommand(interaction) {
+async function gameStartCommand() {
   try {
-    await interaction.reply(`Games starting`);
+    return `Games starting`;
   } catch (e) {
     console.log(e);
-    await interaction.reply(`Something went wrong: ${e}`);
+
+    return `Something went wrong: ${e}`;
   }
 }
 

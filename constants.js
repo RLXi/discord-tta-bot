@@ -7,6 +7,7 @@
  * @property {string} JOIN_COMMAND -- express wish to join games. Follow with number to say up to how many games
  * @property {string} TOGGLE_PAUSE_COMMAND -- opt-out from games for now. Type again to unpause
  * @property {string} GAME_STARTED_COMMAND -- display player combinations
+ * @property {string} DB_STATS_COMMAND -- display database statistics
  */
 
 const constants = {
@@ -18,6 +19,7 @@ const constants = {
   JOIN_COMMAND: "join",
   TOGGLE_PAUSE_COMMAND: "pause",
   GAME_STARTED_COMMAND: "game",
+  DB_STATS_COMMAND: "db-stats",
 };
 
 module.exports = constants;

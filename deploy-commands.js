@@ -9,6 +9,7 @@ const {
   TOGGLE_PAUSE_COMMAND,
   CHANGE_ABBR_COMMAND,
   GAME_STARTED_COMMAND,
+  DB_STATS_COMMAND,
 } = require("./constants");
 
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -21,15 +22,18 @@ const commands = [
     .setDescription("Replies with pong!"),
   new SlashCommandBuilder()
     .setName("server")
-    .setDescription("Replies with server info!"),
+    .setDescription("Replies with server info."),
   new SlashCommandBuilder()
     .setName("user")
-    .setDescription("Replies with user info!"),
+    .setDescription("Replies with user info."),
+  new SlashCommandBuilder()
+    .setName(DB_STATS_COMMAND)
+    .setDescription(
+      "Displays amount of players in database and game played in total."
+    ),
   new SlashCommandBuilder()
     .setName(ADD_ME_AS_COMMAND)
-    .setDescription(
-      "Adds person to the available players list with given name."
-    )
+    .setDescription("Adds you to the available players list with given name.")
     .addStringOption((option) => {
       return option
         .setName("name")
@@ -39,11 +43,11 @@ const commands = [
   new SlashCommandBuilder()
     .setName(ADD_ME_COMMAND)
     .setDescription(
-      "Adds person to the available players list using your display name."
+      "Adds you to the available players list using your current display name."
     ),
   new SlashCommandBuilder()
     .setName(REMOVE_ME_COMMAND)
-    .setDescription("Removes person from available players list."),
+    .setDescription("Removes you from available players list."),
   new SlashCommandBuilder()
     .setName(CHANGE_ABBR_COMMAND)
     .setDescription(
@@ -77,13 +81,26 @@ const commands = [
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 
-rest
-  .put(
-    Routes.applicationGuildCommands(
-      process.env.CLIENT_ID,
-      process.env.GUILD_ID
-    ),
-    { body: commands }
-  )
-  .then(() => console.log("Successfully registered application commands."))
-  .catch(console.error);
+function deploy(withGuild) {
+  if (withGuild) {
+    rest
+      .put(
+        Routes.applicationGuildCommands(
+          process.env.CLIENT_ID,
+          process.env.GUILD_ID
+        ),
+        { body: commands }
+      )
+      .then(() => console.log("Successfully registered application commands."))
+      .catch(console.error);
+  } else {
+    rest
+      .put(Routes.applicationCommands(process.env.CLIENT_ID), {
+        body: commands,
+      })
+      .then(() => console.log("Successfully registered application commands."))
+      .catch(console.error);
+  }
+}
+
+deploy(true);
