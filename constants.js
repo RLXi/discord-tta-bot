@@ -8,6 +8,7 @@
  * @property {string} TOGGLE_PAUSE_COMMAND -- opt-out from games for now. Type again to unpause
  * @property {string} GAME_STARTED_COMMAND -- display player combinations
  * @property {string} DB_STATS_COMMAND -- display database statistics
+ * @property {string} FINISH_GAME_COMMAND -- Save game to the database
  */
 
 const constants = {
@@ -20,6 +21,7 @@ const constants = {
   TOGGLE_PAUSE_COMMAND: "pause",
   GAME_STARTED_COMMAND: "game",
   DB_STATS_COMMAND: "db-stats",
+  FINISH_GAME_COMMAND: "finish-game",
 };
 
 module.exports = constants;

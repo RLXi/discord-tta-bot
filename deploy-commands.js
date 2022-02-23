@@ -10,6 +10,7 @@ const {
   CHANGE_ABBR_COMMAND,
   GAME_STARTED_COMMAND,
   DB_STATS_COMMAND,
+  FINISH_GAME_COMMAND,
 } = require("./constants");
 
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -68,6 +69,43 @@ const commands = [
   new SlashCommandBuilder()
     .setName(GAME_STARTED_COMMAND)
     .setDescription("Print out combinations of available games."),
+  new SlashCommandBuilder()
+    .setName(FINISH_GAME_COMMAND)
+    .setDescription("Print out combinations of available games.")
+    .addStringOption((option) => {
+      return option
+        .setName("gamecode")
+        .setDescription("Game code")
+        .setRequired(true);
+    })
+    .addIntegerOption((option) => {
+      return option
+        .setName("1st-score")
+        .setDescription("1st place score")
+        .setRequired(true)
+        .setMinValue(0);
+    })
+    .addIntegerOption((option) => {
+      return option
+        .setName("2nd-score")
+        .setDescription("2nd place score")
+        .setRequired(true)
+        .setMinValue(0);
+    })
+    .addIntegerOption((option) => {
+      return option
+        .setName("3rd-score")
+        .setDescription("3rd place score")
+        .setRequired(true)
+        .setMinValue(0);
+    })
+    .addIntegerOption((option) => {
+      return option
+        .setName("4th-score")
+        .setDescription("4th place score")
+        .setRequired(true)
+        .setMinValue(0);
+    }),
   new SlashCommandBuilder()
     .setName(JOIN_COMMAND)
     .setDescription("Say you want to join x number of games.")

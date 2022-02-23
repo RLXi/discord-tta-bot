@@ -10,6 +10,7 @@ const {
   CHANGE_ABBR_COMMAND,
   GAME_STARTED_COMMAND,
   DB_STATS_COMMAND,
+  FINISH_GAME_COMMAND,
 } = require("./constants");
 
 const {
@@ -21,6 +22,7 @@ const {
   joinCommand,
   changeAbbrCommand,
   togglePauseCommand,
+  finishGameCommand,
 } = require("./functions");
 
 const { Client, Intents } = require("discord.js");
@@ -81,6 +83,11 @@ client.on("interactionCreate", async (interaction) => {
     }
     case DB_STATS_COMMAND: {
       const msg = await dbStatsCommand();
+      interaction.reply(msg);
+      break;
+    }
+    case FINISH_GAME_COMMAND: {
+      const msg = await finishGameCommand(member, options);
       interaction.reply(msg);
       break;
     }

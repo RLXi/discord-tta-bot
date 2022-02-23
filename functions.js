@@ -1,6 +1,7 @@
 const faunadb = require("faunadb");
 const { Client, Intents } = require("discord.js");
 const { combinations } = require("./utils");
+const moment = require("moment");
 
 const faunaClient = new faunadb.Client({
   secret: process.env.FAUNADB,
@@ -173,6 +174,18 @@ async function gameStartCommand() {
   }
 }
 
+async function finishGameCommand(member, options) {
+  try {
+    const a = moment().format("YYYY-MM-DD");
+    const created = moment().format("YYYY-MM-DD HH:mm:ss");
+    return `Game finished ${a}`;
+  } catch (e) {
+    console.log(e);
+
+    return `Something went wrong: ${e}`;
+  }
+}
+
 module.exports = {
   addCommand,
   addAsCommand,
@@ -182,4 +195,5 @@ module.exports = {
   joinCommand,
   changeAbbrCommand,
   togglePauseCommand,
+  finishGameCommand,
 };
