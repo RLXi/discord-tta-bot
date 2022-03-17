@@ -119,7 +119,11 @@ const commands = [
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 
-function deploy(withGuild) {
+/**
+ *
+ * @param {boolean} withGuild this is for testing purposes. It's faster to deploy new/updated commands when those work only in specific server
+ */
+function deploy(withGuild = true) {
   if (withGuild) {
     rest
       .put(
